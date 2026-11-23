@@ -12,6 +12,10 @@ build_tools="${ANDROID_BUILD_TOOLS_VERSION:-37.0.0}"
 : "${ANDROID_KEYSTORE_PASSWORD_FILE:?Set ANDROID_KEYSTORE_PASSWORD_FILE to the signing password file}"
 : "${android_sdk:?Set ANDROID_HOME to the Android SDK path}"
 
+if [[ -n "${JAVA_HOME:-}" ]]; then
+  export PATH="$JAVA_HOME/bin:$PATH"
+fi
+
 apksigner="$android_sdk/build-tools/$build_tools/apksigner"
 [[ -x "$apksigner" ]] || { echo "Missing Android build tools $build_tools" >&2; exit 1; }
 
