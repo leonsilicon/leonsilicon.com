@@ -5,27 +5,93 @@ import {
   ArrowDown, ArrowRight, ArrowUpRight, Cable, Database, GitFork, Mail,
   MessagesSquare, Smartphone,
 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { projects, site } from "./content";
 import { InstallQr, SiteShell } from "./site-shell.web";
 import { useWebInstall } from "./web-install.web";
 
 const processor = Asset.fromModule(require("./assets/processor.webp")).uri;
 const projectIcons = { cable: Cable, database: Database, message: MessagesSquare };
+const keyword = "silicon";
+const revealKey = "portfolio-revealed";
 
 export default function Home() {
+  const [revealed, setRevealed] = useState(false);
+  const heading = useRef<HTMLHeadingElement>(null);
+
+  const reveal = useCallback(() => {
+    setRevealed(true);
+    try {
+      sessionStorage.setItem(revealKey, "true");
+    } catch {
+      // The reveal still works when storage is unavailable.
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      setRevealed(sessionStorage.getItem(revealKey) === "true");
+    } catch {
+      // Start on the minimal page when storage is unavailable.
+    }
+  }, []);
+
+  useEffect(() => {
+    if (revealed) {
+      heading.current?.focus({ preventScroll: true });
+      return;
+    }
+
+    let typed = "";
+    function handleKey(event: KeyboardEvent) {
+      if (event.defaultPrevented || event.isComposing || event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.target instanceof Element && event.target.closest("input, textarea, select, [contenteditable]")) return;
+      if (event.key === "Backspace") typed = typed.slice(0, -1);
+      if (event.key.length !== 1) return;
+      typed = (typed + event.key.toLowerCase()).slice(-keyword.length);
+      if (typed === keyword) reveal();
+    }
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [reveal, revealed]);
+
+  return (
+    <>
+      <title>Leon Si</title>
+      <meta name="description" content={site.tagline} />
+      <link rel="canonical" href={site.url} />
+      {revealed ? (
+        <Portfolio heading={heading} />
+      ) : (
+        <main className="landing">
+          <h1>{site.name}</h1>
+          <input
+            className="keyword-input"
+            type="text"
+            aria-label="Type a word"
+            placeholder="Type here"
+            autoCapitalize="none"
+            autoComplete="off"
+            spellCheck={false}
+            onChange={(event) => {
+              if (event.currentTarget.value.trim().toLowerCase() === keyword) reveal();
+            }}
+          />
+        </main>
+      )}
+    </>
+  );
+}
+
+function Portfolio({ heading }: { heading: RefObject<HTMLHeadingElement | null> }) {
   const { installed } = useWebInstall();
   return (
     <SiteShell>
-      <title>Leon Si · Software Developer</title>
-      <meta name="description" content={site.tagline} />
-      <meta property="og:title" content="Leon Si · Software Developer" />
-      <meta property="og:description" content={site.tagline} />
-      <link rel="canonical" href={site.url} />
-
       <section className="hero" aria-labelledby="intro-title">
         <div className="hero-copy">
-          <p className="eyebrow"><span className="pulse" /> Software developer</p>
-          <h1 id="intro-title">Hi, I’m<br /><span>Leon Si.</span></h1>
+          <p className="eyebrow">Software developer</p>
+          <h1 id="intro-title" ref={heading} tabIndex={-1}>Hi, I’m<br />Leon Si.</h1>
           <p className="intro">{site.tagline}</p>
           <div className="actions">
             <a className="button button-primary" href="#work">
@@ -67,7 +133,7 @@ export default function Home() {
             const Icon = projectIcons[project.icon];
             return (
               <a className="project-card" href={project.url} key={project.name}>
-                <span className={`project-icon project-${project.icon}`}><Icon size={21} aria-hidden /></span>
+                <span className="project-icon"><Icon size={21} aria-hidden /></span>
                 <ArrowUpRight className="project-arrow" size={19} aria-hidden />
                 <span className="project-category">{project.category}</span>
                 <h3>{project.name}</h3>

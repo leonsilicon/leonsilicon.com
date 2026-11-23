@@ -7,5 +7,5 @@ await QRCode.toFile(join(publicDirectory, "install-qr.png"), site.installUrl, {
   margin: 4,
   scale: 10,
   errorCorrectionLevel: "M",
-  color: { dark: "#151223", light: "#ffffff" },
+  color: { dark: "#000000", light: "#ffffff" },
 });

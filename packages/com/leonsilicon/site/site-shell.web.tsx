@@ -15,16 +15,18 @@ export function SiteShell({ children, installPage = false }: {
         <div className="wrap header-inner">
           <Link className="brand" href="/" aria-label="Leon Si home">
             <span className="brand-mark"><Terminal size={19} aria-hidden /></span>
-            <span>leon<span className="brand-accent">silicon</span></span>
+            <span>leonsilicon</span>
           </Link>
-          <nav aria-label="Main">
-            <a href="/#work">Work</a>
-            <a href="/#about">About</a>
-            <Link className="nav-app" href="/install" aria-current={installPage ? "page" : undefined}>
-              <Smartphone size={15} aria-hidden />
-              <span>Get the app</span>
-            </Link>
-          </nav>
+          {!installPage && (
+            <nav aria-label="Main">
+              <a href="#work">Work</a>
+              <a href="#about">About</a>
+              <Link className="nav-app" href="/install">
+                <Smartphone size={15} aria-hidden />
+                <span>Get the app</span>
+              </Link>
+            </nav>
+          )}
         </div>
       </header>
       <main id="main" className="wrap">{children}</main>

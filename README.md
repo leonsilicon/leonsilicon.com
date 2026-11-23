@@ -1,6 +1,6 @@
 # Leon Si
 
-A personal portfolio for [leonsilicon.com](https://www.leonsilicon.com), built with Expo Router. Visitors can scan the homepage QR code to open [the install page](https://www.leonsilicon.com/install), download a signed Android APK, or add the offline-capable web app to their iPhone or iPad home screen.
+A personal portfolio for [leonsilicon.com](https://www.leonsilicon.com), built with Expo Router. Type `silicon` on the homepage to reveal the portfolio and its QR code. The code opens [the install page](https://www.leonsilicon.com/install), where visitors can download the signed Android APK or install the offline-capable web app on iPhone or iPad.
 
 ## Layout
 
@@ -31,6 +31,8 @@ The web export writes `dist/`. The deployment must serve `/install` with `instal
 2. Run the type check, build the web export, then build the APK with `bun run build:android`. The Android build requires Java 17 and Android SDK Platform 37, Build Tools 37.0.0, and NDK 27.1.12297006. Set `ANDROID_HOME`, `ANDROID_KEYSTORE`, `ANDROID_KEY_ALIAS`, and `ANDROID_KEYSTORE_PASSWORD_FILE`. Keep the same signing key for updates.
 3. Commit and push the source. Create a GitHub release for the version tag with `dist-android/leonsilicon.apk` attached under the name `leonsilicon.apk`.
 4. Deploy the web build with `bunx wrangler deploy`. Confirm the install page and the release APK are publicly reachable.
+
+For a web-only release, bump the root package version and attach the last published Android APK under the same name so the install page continues to serve it.
 
 ## Artwork
 

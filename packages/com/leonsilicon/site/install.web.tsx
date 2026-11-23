@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { ArrowDownToLine, ArrowLeft, Check, Share, Smartphone } from "lucide-react";
 import { site } from "./content";
-import { InstallQr, SiteShell } from "./site-shell.web";
+import { SiteShell } from "./site-shell.web";
 import { useWebInstall } from "./web-install.web";
 
 export default function Install() {
@@ -15,16 +15,8 @@ export default function Install() {
       <div className="install-page">
         <Link className="inline-link install-back" href="/"><ArrowLeft size={16} aria-hidden /> Back to home</Link>
         <div className="install-heading">
-          <div>
-            <h1>Get the app</h1>
-            <p>Take my portfolio with you. It also works offline after the first visit.</p>
-          </div>
-          {platform === "other" && !installed && (
-            <div className="install-qr">
-              <InstallQr />
-              <span>Scan with your phone</span>
-            </div>
-          )}
+          <h1>Get the app</h1>
+          <p>Take my portfolio with you. It also works offline after the first visit.</p>
         </div>
         {installed && (
           <div className="installed-banner" role="status"><Check size={20} aria-hidden /> The web app is installed.</div>
