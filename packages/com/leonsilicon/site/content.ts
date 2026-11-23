@@ -1,8 +1,9 @@
+const url = "https://www.leonsilicon.com";
+
 export const site = {
   name: "Leon Si",
-  domain: "leonsilicon.com",
-  url: "https://leonsilicon.com",
-  installUrl: "https://leonsilicon.com/install",
+  url,
+  installUrl: `${url}/install`,
   github: "https://github.com/leonsilicon",
   email: "leon@leonsilicon.com",
   androidDownload:

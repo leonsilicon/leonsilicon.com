@@ -1,6 +1,6 @@
 # Leon Si
 
-A personal portfolio for [leonsilicon.com](https://leonsilicon.com), built with Expo Router. Visitors can scan the homepage QR code to open [the install page](https://leonsilicon.com/install), download a signed Android APK, or add the offline-capable web app to their iPhone or iPad home screen.
+A personal portfolio for [leonsilicon.com](https://www.leonsilicon.com), built with Expo Router. Visitors can scan the homepage QR code to open [the install page](https://www.leonsilicon.com/install), download a signed Android APK, or add the offline-capable web app to their iPhone or iPad home screen.
 
 ## Layout
 

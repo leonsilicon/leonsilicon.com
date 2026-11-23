@@ -7,5 +7,5 @@
     "directory": "./dist",
     "html_handling": "drop-trailing-slash"
   },
-  "routes": [{ "pattern": "leonsilicon.com", "custom_domain": true }]
+  "routes": [{ "pattern": "www.leonsilicon.com/*", "zone_name": "leonsilicon.com" }]
 }
