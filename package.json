@@ -1,0 +1,22 @@
+{
+  "name": "leonsilicon.com",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "bun@1.4.4",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/com/leonsilicon/*"
+  ],
+  "scripts": {
+    "dev": "bun scripts/generate-install-qr.ts && bun run --cwd apps/leonsilicon-expo dev",
+    "build": "bun scripts/build-web.ts",
+    "typecheck": "bun run --cwd apps/leonsilicon-expo typecheck",
+    "build:android": "bash scripts/build-android.sh"
+  },
+  "devDependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
