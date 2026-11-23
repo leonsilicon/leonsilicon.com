@@ -15,7 +15,9 @@ export default function Home() {
           Hi, I’m{"\n"}<Text style={styles.accent}>Leon Si.</Text>
         </Text>
         <Text style={styles.intro}>{site.tagline}</Text>
-        <Image source={processor} resizeMode="cover" style={styles.art} accessible={false} />
+        <View style={styles.artFrame}>
+          <Image source={processor} resizeMode="cover" style={styles.art} accessible={false} />
+        </View>
       </View>
 
       <View style={styles.section}>
@@ -66,7 +68,8 @@ const styles = StyleSheet.create({
   title: { color: "#f5f3ff", fontSize: 64, fontWeight: "800", letterSpacing: -4, lineHeight: 69 },
   accent: { color: "#c2abff" },
   intro: { color: "#aaa8bf", fontSize: 18, lineHeight: 27 },
-  art: { width: "100%", aspectRatio: 1.32, borderRadius: 16, backgroundColor: "#151229" },
+  artFrame: { aspectRatio: 1.32, borderRadius: 16, backgroundColor: "#151229", overflow: "hidden" },
+  art: { width: "100%", height: "100%" },
   section: { gap: 14, marginTop: 32 },
   heading: { color: "#f5f3ff", fontSize: 29, fontWeight: "800", letterSpacing: -1 },
   projects: { gap: 10 },
